@@ -1,0 +1,239 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,600&family=EB+Garamond:wght@400;500&display=swap');
+
+.stoll-wrap * { margin:0; padding:0; box-sizing:border-box; }
+.stoll-wrap { font-family: 'EB Garamond', Georgia, serif; }
+
+.stoll-wrap nav {
+  position: fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 28px 48px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
+}
+.stoll-wrap .logo { color:#fff; font-family:'Playfair Display', serif; font-weight:800; font-size:1.9rem; }
+.stoll-wrap .nav-links { position:relative; display:flex; gap:30px; list-style:none; }
+.stoll-wrap .nav-links a {
+  position:relative; color:#f0f0f0; text-decoration:none;
+  font-size:0.74rem; letter-spacing:1.4px; text-transform:uppercase;
+  font-weight:600; padding-bottom:10px; opacity:0.8;
+  transition: opacity 0.25s ease;
+}
+.stoll-wrap .nav-links a:hover, .stoll-wrap .nav-links a.active { opacity:1; }
+.stoll-wrap .nav-underline {
+  position:absolute; bottom:0; height:2px; background:#fff; border-radius:2px;
+  transition: left 0.35s cubic-bezier(0.65,0,0.35,1), width 0.35s cubic-bezier(0.65,0,0.35,1);
+}
+.stoll-wrap .hamburger { display:none; z-index:60; background:none; border:none; cursor:pointer; padding:8px; }
+.stoll-wrap .hamburger span { display:block; width:24px; height:2px; background:#fff; margin:5px 0; transition:transform .25s, opacity .25s; }
+.stoll-wrap .hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.stoll-wrap .hamburger.open span:nth-child(2){ opacity:0; }
+.stoll-wrap .hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+.stoll-wrap .mobile-panel { display:none; }
+@media (max-width:768px){
+  .stoll-wrap nav{ padding:20px; }
+  .stoll-wrap .nav-links{ display:none; }
+  .stoll-wrap .hamburger{ display:block; }
+  .stoll-wrap .mobile-panel{
+    display:block; position:fixed; top:68px; right:16px; z-index:55;
+    background:rgba(15,15,15,0.92); backdrop-filter:blur(6px);
+    border-radius:14px; overflow:hidden; max-height:0; width:230px;
+    transition:max-height .4s cubic-bezier(0.65,0,0.35,1);
+  }
+  .stoll-wrap .mobile-panel.open{ max-height:500px; }
+  .stoll-wrap .mobile-panel a{
+    display:block; color:#f0f0f0; text-decoration:none; font-size:0.92rem;
+    letter-spacing:0.5px; padding:13px 20px; opacity:0; transform:translateX(14px);
+    transition:opacity .3s, transform .3s, background .2s; border-radius:8px; margin:4px 8px;
+  }
+  .stoll-wrap .mobile-panel.open a{ opacity:1; transform:translateX(0); }
+  .stoll-wrap .mobile-panel a:nth-child(1){ transition-delay:.05s; }
+  .stoll-wrap .mobile-panel a:nth-child(2){ transition-delay:.10s; }
+  .stoll-wrap .mobile-panel a:nth-child(3){ transition-delay:.15s; }
+  .stoll-wrap .mobile-panel a:nth-child(4){ transition-delay:.20s; }
+  .stoll-wrap .mobile-panel a:nth-child(5){ transition-delay:.25s; }
+  .stoll-wrap .mobile-panel a:nth-child(6){ transition-delay:.30s; }
+  .stoll-wrap .mobile-panel a.active{ background:rgba(255,255,255,0.12); }
+}
+
+.stoll-wrap .section {
+  position:relative; height:100vh; min-height:640px;
+  display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden;
+}
+.stoll-wrap .section .bg {
+  position:absolute; top:-12%; left:0; width:100%; height:124%;
+  background-size:cover; background-position:center; will-change:transform;
+}
+.stoll-wrap .section .overlay {
+  position:absolute; inset:0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.9) 100%);
+}
+.stoll-wrap .section .content {
+  position:relative; z-index:2; padding:0 48px 80px; max-width:600px; color:#f5f5f5;
+  opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease;
+}
+.stoll-wrap .section.visible .content { opacity:1; transform:translateY(0); }
+.stoll-wrap .section .content p { font-size:1.15rem; line-height:1.6; margin-bottom:18px; text-shadow:0 2px 10px rgba(0,0,0,0.6); }
+
+.stoll-wrap .side-label {
+  position:absolute; right:16px; top:50%; transform:translateY(-50%) rotate(90deg);
+  transform-origin:right center; z-index:2; color:rgba(255,255,255,0.9);
+  font-family:'Playfair Display', serif; font-style:italic; font-weight:600;
+  font-size:2.3rem; white-space:nowrap; letter-spacing:1px;
+}
+@media (max-width:768px){
+  .stoll-wrap .section .content { padding:0 24px 56px; }
+  .stoll-wrap .side-label { font-size:1.5rem; right:8px; }
+}
+</style>
+
+<div class="stoll-wrap">
+
+<nav>
+  <div class="logo">Stoll III</div>
+  <ul class="nav-links" id="deskNav">
+    <li><a href="#klaer">Klær</a></li>
+    <li><a href="#villmark">Villmarkshjørnet</a></li>
+    <li><a href="#haar">Hår- og Frisørprodukter</a></li>
+    <li><a href="#interior">Interiør</a></li>
+    <li><a href="#matdrikke" class="active">Mat &amp; Drikke</a></li>
+    <li><a href="#annet">Annet</a></li>
+    <span class="nav-underline" id="underline"></span>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#klaer">Klær</a>
+  <a href="#villmark">Villmarkshjørnet</a>
+  <a href="#haar">Hår- og Frisørprodukter</a>
+  <a href="#interior">Interiør</a>
+  <a href="#matdrikke" class="active">Mat &amp; Drikke</a>
+  <a href="#annet">Annet</a>
+</div>
+
+<section class="section" id="klaer">
+  <div class="bg" style="background-image:url('PASTE-KLAER-IMAGE-URL-HERE')"></div>
+  <div class="overlay"></div>
+  <div class="content">
+    <p>Hos Stoll III finner du et godt utvalg dameklær i både normale og store størrelser. Vi fører kvalitetsmerker som Masai, Kaffe, Kaffe Curve og Kris of Norway – klær som kombinerer komfort, kvalitet og tidløs stil for enhver anledning.</p>
+  </div>
+  <div class="side-label">Klær</div>
+</section>
+
+<section class="section" id="villmark">
+  <div class="bg" style="background-image:url('PASTE-VILLMARK-IMAGE-URL-HERE')"></div>
+  <div class="overlay"></div>
+  <div class="content">
+    <p>I vårt villmarkshjørne finner du det meste du trenger til fisketuren, jakta eller friluftslivet. Vi har et bredt utvalg fiskeutstyr fra Lawson, Søvik, Prey, Rapala og Mad River, samt kvalitetskniver fra Helle, BPS Knives, Mora og EKA.</p>
+    <p>Her finner du også turmat, Primus-utstyr, gass, kart, batterier, hodelykter, kikkerter, multiverktøy, myggmiddel, solkrem og mye mer – kort sagt alt du trenger for gode opplevelser ute.</p>
+  </div>
+  <div class="side-label">Villmarkshjørnet</div>
+</section>
+
+<section class="section" id="haar">
+  <div class="bg" style="background-image:url('PASTE-HAAR-IMAGE-URL-HERE')"></div>
+  <div class="overlay"></div>
+  <div class="content">
+    <p>Vi tilbyr et stort utvalg hår- og frisørprodukter fra REF, Awapuhi og Paul Mitchell. I tillegg finner du en erfaren frisør med over 30 års erfaring, som hjelper deg med alt fra klipp til gode råd om hårpleie.</p>
+  </div>
+  <div class="side-label">Hår &amp; Frisør</div>
+</section>
+
+<section class="section" id="interior">
+  <div class="bg" style="background-image:url('PASTE-INTERIOR-IMAGE-URL-HERE')"></div>
+  <div class="overlay"></div>
+  <div class="content">
+    <p>Vår lille interiøravdeling byr på hyggelige detaljer til hjemmet. Her finner du blant annet lys, servietter, puter, duker, lamper, kopper og andre interiørartikler.</p>
+    <p>Vi fører også effektive og miljøvennlige rengjøringsprodukter som gjør hverdagen litt enklere.</p>
+  </div>
+  <div class="side-label">Interiør</div>
+</section>
+
+<section class="section" id="matdrikke">
+  <div class="bg" style="background-image:url('PASTE-MATDRIKKE-IMAGE-URL-HERE')"></div>
+  <div class="overlay"></div>
+  <div class="content">
+    <p>I avdelingen for mat og drikke finner du smakfulle kvalitetsprodukter fra blant annet Olivenlunden.</p>
+    <p>Vi tilbyr gode olivenoljer, kaffe fra vårt eget kaffemerke, te, sjokolade, søtsaker og lokalprodusert honning – perfekte produkter både til deg selv og som gave.</p>
+  </div>
+  <div class="side-label">Mat &amp; Drikke</div>
+</section>
+
+<section class="section" id="annet">
+  <div class="bg" style="background-image:url('PASTE-ANNET-IMAGE-URL-HERE')"></div>
+  <div class="overlay"></div>
+  <div class="content">
+    <p>Hos Stoll III finner du også mye mer. Vi har et spennende utvalg kunst- og håndverksprodukter fra lokale produsenter, blant annet skinn- og ullprodukter.</p>
+    <p>Du finner også linser, linsevæske, lesebriller og solbriller, og vi samarbeider med Dombås Optikk ved behov for service og reparasjoner. Vi skifter batteri på klokker og har et utvalg klokkereimer. Ønsker du å prøve discgolf, kan du leie utstyr hos oss, og vi formidler også adgangsarmbånd til Folldals lokale helsestudio.</p>
+  </div>
+  <div class="side-label">Annet</div>
+</section>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var deskNav = document.getElementById('deskNav');
+  var underline = document.getElementById('underline');
+  if (deskNav && underline) {
+    var links = deskNav.querySelectorAll('a');
+    var current = deskNav.querySelector('a.active') || links[0];
+    function moveUnderlineTo(el) {
+      var navRect = deskNav.getBoundingClientRect();
+      var linkRect = el.getBoundingClientRect();
+      underline.style.left = (linkRect.left - navRect.left) + 'px';
+      underline.style.width = linkRect.width + 'px';
+    }
+    window.addEventListener('load', function () { moveUnderlineTo(current); });
+    window.addEventListener('resize', function () { moveUnderlineTo(current); });
+    links.forEach(function (link) {
+      link.addEventListener('mouseenter', function () { moveUnderlineTo(link); });
+    });
+    deskNav.addEventListener('mouseleave', function () { moveUnderlineTo(current); });
+    links.forEach(function (link) {
+      link.addEventListener('click', function () {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        link.classList.add('active');
+        current = link;
+      });
+    });
+  }
+
+  var hamburger = document.getElementById('hamburger');
+  var mobilePanel = document.getElementById('mobilePanel');
+  if (hamburger && mobilePanel) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobilePanel.classList.toggle('open');
+    });
+    mobilePanel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        hamburger.classList.remove('open');
+        mobilePanel.classList.remove('open');
+      });
+    });
+  }
+
+  var sections = document.querySelectorAll('.stoll-wrap .section');
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.45) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');
+      }
+    });
+  }, { threshold: [0, 0.45, 1] });
+  sections.forEach(function (s) { observer.observe(s); });
+
+  document.querySelectorAll('.stoll-wrap .bg').forEach(function (bg) {
+    window.addEventListener('scroll', function () {
+      var rect = bg.parentElement.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        bg.style.transform = 'translateY(' + (rect.top * -0.15) + 'px)';
+      }
+    }, { passive: true });
+  });
+});
+</script>
